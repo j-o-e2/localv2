@@ -1,0 +1,177 @@
+@import "tailwindcss";
+:root {
+  /* Light theme defaults */
+    /* Use an opaque background so cards don't show through to hero image */
+    --background: #f8fafc;
+  --foreground: #0f172a; /* dark text */
+
+    /* Make panels fully opaque */
+    --card: #ffffff; /* opaque white panel for content */
+    --card-foreground: #0f172a;
+
+    --popover: #ffffff; /* opaque popovers */
+    --popover-foreground: #0f172a;
+
+  /* Primary: deep navy blue for trust */
+  --primary: #1e3a8a;
+  --primary-foreground: #ffffff;
+
+  /* Secondary: bright orange for CTA highlights */
+  --secondary: #f97316;
+  --secondary-foreground: #ffffff;
+
+  /* Muted: soft neutrals for UI elements */
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+
+  /* Accent: bright orange for highlights */
+  --accent: #f97316;
+  --accent-foreground: #ffffff;
+
+  --destructive: #b23a3a;
+  --destructive-foreground: #ffffff;
+
+  --border: #1a1f24;
+  --input: #0d1116;
+  --ring: #1e3a8a;
+
+  --chart-1: #1e3a8a;
+  --chart-2: #f97316;
+  --chart-3: #4fb3ff;
+  --chart-4: #6b9a4b;
+  --chart-5: #5aa1b8;
+
+  --radius: 0.625rem;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #2f855a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #b87b2a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #1a1f24;
+  --sidebar-ring: #2f855a;
+}
+ 
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  /* Site-wide hero background (triptych).
+     - Put the image file at `public/hero-triptych.jpg`.
+     - The image will cover the viewport and remain fixed while content scrolls.
+     - `bg-background` still maps to a transparent color so components using that
+       token don't paint an opaque backdrop over the hero. */
+  body {
+    @apply text-foreground;
+    background-color: var(--background);
+    /* Ensure content stacks above the image */
+    min-height: 100vh;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Translucency rules disabled - cards now use their natural opacity */
+/*
+[class*="bg-white"] {
+  background-color: rgba(255,255,255,0.04) !important;
+  backdrop-filter: blur(6px) !important;
+}
+[class*="bg-foreground"] {
+  background-color: rgba(230,238,246,0.04) !important;
+  color: var(--foreground) !important;
+  backdrop-filter: blur(6px) !important;
+}
+[class*="bg-foreground/"] {
+  background-color: rgba(230,238,246,0.04) !important;
+  backdrop-filter: blur(6px) !important;
+}
+[class*="bg-card"] {
+  background-color: rgba(15,23,32,0.6) !important;
+  backdrop-filter: blur(6px) !important;
+}
+[class*="bg-muted"] {
+  background-color: rgba(17,18,22,0.28) !important;
+  backdrop-filter: blur(6px) !important;
+}
+[class*="bg-white/"] {
+  background-color: rgba(255,255,255,0.04) !important;
+  backdrop-filter: blur(6px) !important;
+}
+*/
+
+/* Exempt the site footer so it remains a solid white card for legibility.
+   Many components intentionally get translucency above, but the footer
+   (site final section) should be a readable white card with dark text. */
+/* Footer: make it a pale trust-building green and ensure dark green text for readability */
+footer[class*="bg-white"], footer.bg-white {
+  background-color: #e6fff0 !important; /* very pale green */
+  color: #064e3b !important; /* dark green text for contrast */
+  border-top: 1px solid rgba(6,78,59,0.06) !important;
+}
+footer[class*="bg-white"] a,
+footer[class*="bg-white"] p,
+footer[class*="bg-white"] h1,
+footer[class*="bg-white"] h2,
+footer[class*="bg-white"] h3,
+footer[class*="bg-white"] li {
+  color: #064e3b !important;
+}
+footer[class*="bg-white"] .text-card\/70 {
+  color: rgba(6,78,59,0.72) !important; /* slightly muted dark-green for secondary text */
+}
+
+
